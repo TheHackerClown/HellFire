@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HellFire</title>
+    <link rel="shortcut icon" href="transparent.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="center" style="display: none;" id="login">
+        <img src="transparent.png" width="200px" height="200px" alt="Hellfire" draggable="false">
+        <div class="nes-field center">
+            <label for="dark_field" style="color:#fff;">What Should I call you?</label>
+            <input type="text" id="dark_field" class="nes-input is-dark" placeholder="Enter Username">
+            <button type="button" class="nes-btn is-error" id="submitbtn">Prepare To Die</button>
+          </div>
+            <dialog class="nes-dialog is-dark is-rounded" id="alert-box">
+              <form method="dialog">
+                <p class="title" id="err-code">Error 409</p>
+                <p id="err-message">Username Already Existed</p>
+                <menu class="dialog-menu">
+                  <button class="nes-btn">Retry</button>
+                  <button class="nes-btn is-error">Retry</button>
+                </menu>
+              </form>
+            </dialog>
+    </div>
+    <div class="center" id="loading">
+      <img src="transparent.png" width="200px" height="200px" alt="Hellfire" draggable="false">
+      <h2>Loading...</h2>
+      <progress class="nes-progress is-error" value="10" max="100"></progress>
+  </div>
+    <script src="main.js"></script>
+</body>
+</html>

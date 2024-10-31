@@ -1,0 +1,33 @@
+body {
+    background-color: rgb(33, 37, 41) !important;
+    height: 100dvh;
+    width:100dvw;
+    overflow: hidden;
+}
+
+* {
+    font-family: "Press Start 2P", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: aliceblue; 
+}
+
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+#submitbtn {
+    margin:5%;
+}
+
+#login {
+    height: 100dvh;
+    width: 100dvw;
+    background-color: rgb(33, 37, 41);
+    transition: transform 4s;
+}
