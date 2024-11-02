@@ -1,24 +1,20 @@
-//document.getElementById('dialog-dark-rounded').showModal()
-function throwerr(code, message) {
-    document.getElementById('err-code').textContent = `Error ${code}`;
-    document.getElementById('err-message').textContent = message;
-    document.getElementById("alert-box").showModal()
-}
-function sendusername() {
-    ws.send(JSON.stringify({type:"NEW_PLAYER"}))
-}
+// const ws = new Hellfire();
 
 
-const ws = new WebSocket("ws://localhost:8080");
+// if (sessionStorage.getItem("uid") != null ) {
+//     ws.uid = sessionStorage.getItem("uid");
+//     $('#username').prop('disabled',true);
+//     $('#passkey').prop('disabled',true);
+//     $('#preptodie').prop('disabled',true);
+//     $('#login').css('opacity','0');
+//     setTimeout(()=>{
+//         $("#loading").css("opacity",'1');
+//         ws.loading(100)
+//     },1000)
+// }
 
-ws.onopen = () => {
-
-    ws.send(JSON.stringify({type:"NAME",data:"dsds"}))
-}
-
-ws.onmessage = (event) => {
-    const msg = JSON.parse(event.data);
-    if (msg.code > 400) {
-        throwerr(msg.code, msg.data);
-    }
-}
+// let wait = setInterval(() => {
+//     if (ws.sign) {
+//         clearInterval(wait)
+//     }
+// }, 500);

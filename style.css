@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(33, 37, 41) !important;
+    background-color: rgb(0, 0, 0) !important;
     height: 100dvh;
     width:100dvw;
     overflow: hidden;
@@ -22,12 +22,41 @@ body {
 }
 
 #submitbtn {
-    margin:5%;
+    margin-top :10%;
 }
 
-#login {
+.render {
+    position: static;
+    margin: 0;
+    z-index: -1;
+}
+
+#blackout {
     height: 100dvh;
     width: 100dvw;
     background-color: rgb(33, 37, 41);
-    transition: transform 4s;
+    transition: transform 5s;
+    position: absolute;
+}
+
+#loading {
+    position:absolute;
+    opacity: 0;
+    flex-direction: column;
+    text-align: center;
+}
+#login, #loading {
+    transition: opacity 2s;
+}
+
+#login {
+    position: relative;
+}
+
+#preptodie {
+    width:35dvw;
+}
+
+#loading-progress {
+    width: 80dvw;
 }
