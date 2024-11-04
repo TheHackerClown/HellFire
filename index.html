@@ -6,17 +6,18 @@
     <title>HellFire</title>
     <link rel="shortcut icon" href="transparent.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
 </head>
 <body>
-  <div class="center" id="blackout" style="display: none;" >
+  <div class="center" id="blackout">
     <img src="transparent.png" width="200px" height="200px" alt="Hellfire" draggable="false">
-    <div id="loading">
+    <div id="loading" class="center">
       <h2 class="nes-text">Loading...</h2>
-      <progress class="nes-progress is-error" value="0" max="100" id="loading-progress"></progress>
+      <div class="loader"><div class="loader-rev"></div></div>
       </div>
     <div class="nes-field center" id="login">
         <label for="username">Username</label>
@@ -25,7 +26,7 @@
         <label for="passkey" style="color:#fff;">Password</label>
         <input type="password" id="passkey" autocomplete="current-password" required class="nes-input is-dark" placeholder="Password">
         <br>
-        <button type="button" class="nes-btn is-error" id="preptodie" onclick="ws.signin()">Login / Register</button>
+        <button type="button" class="nes-btn is-error" id="preptodie">Login / Register</button>
     </div>
   </div>
   <canvas id="render">
@@ -43,9 +44,10 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.babylonjs.com/babylon.js"></script>
   <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js" integrity="sha512-avLcnGxl5mqAX/wIKERdb1gFNkOLHh2W5JNCfJm5OugpEPBz7LNXJJ3BDjjwO00AxEY1MqdNjtEmiYhKC0ld7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
   <script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
   <script src="utils.js" type="module"></script>
-  <script src="main.js"></script>
+  <script src="main.js" type="module"></script>
 </body>
 </html>

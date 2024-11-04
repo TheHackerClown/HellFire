@@ -1,6 +1,6 @@
 
 
-class Hellfire {
+export default class Hellfire {
     constructor() {
         this.uid = null;
         this.ws = new WebSocket("ws://localhost:8080");
@@ -23,7 +23,7 @@ class Hellfire {
                 case 101:
                     this.sign = true;
                     this.uid = msg.data;
-                    sessionStorage.setItem('uid',this.uid);
+                    localStorage.setItem('uid',this.uid);
                     break;
                 case 110:
                     this.throwerr(110, msg.data);
@@ -116,7 +116,6 @@ class Hellfire {
                 $('#login').css('opacity','0');
                 setTimeout(()=>{
                     $("#loading").css("opacity",'1');
-                    this.loading(100);
                     $('#username').val("");
                     $('#passkey').val("");
                 },500)}
@@ -164,34 +163,20 @@ class GameInput {
         
     }
 }
-const canvas = document.getElementById("render");
-canvas.setAttribute('width',window.innerWidth);
-canvas.setAttribute('height',window.innerHeight);
-const engine = new BABYLON.Engine(canvas, true);
 
-const createScene = () => {
-    const scene = new BABYLON.Scene(engine);
+class Player {
+    constructor() {
+        this.me = 's';
+        this.canvas = document.getElementById("render");
+        this.engine = new BABYLON.Engine(this.canvas, true);
+        this.scene = new BABYLON.Scene(this.engine);
+        this.camera = new UniversalCamera("playerCamera", new BABYLON.Vector3(0, 1.6, -5), this.scene);
+        this.camera.attachControl(canvas, false);
+        this.light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
-    // Add a camera to the scene
-    const camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 4, 10, BABYLON.Vector3.Zero(), scene);
-    camera.attachControl(canvas, true);
+        this.engine.runRenderLoop(() => {
+            scene.render(); 
+        });
+    }
+}
 
-    // Add a light
-    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
-    light.intensity = 0.7;
-
-    // Add a sphere
-    const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
-
-    return scene;
-};
-
-// Create the scene and run the render loop
-const scene = createScene();
-engine.runRenderLoop(() => scene.render());
-
-// Resize the engine on window resize
-window.addEventListener("resize", () => {
-    engine.resize();
-    canvas.setAttribute('width',window.innerWidth);
-    canvas.setAttribute('height',window.innerHeight);});
