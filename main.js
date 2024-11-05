@@ -12,6 +12,7 @@ if (localStorage.getItem("uid") != null ) {
     $('#passkey').prop('disabled',true);
     $('#preptodie').prop('disabled',true);
     $('#login').css('opacity','0');
+    ws.signin();
     setTimeout(()=>{
         $("#loading").css("opacity",'1');
         ws.loading(100)
