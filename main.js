@@ -1,34 +1,31 @@
 import Hellfire from './utils.js';
+const canvas = document.getElementById('render');
+const ctx = canvas.getContext('2d');
+canvas.setAttribute('width',window.innerWidth);
+canvas.setAttribute('height',window.innerHeight);
 
-const ws = new Hellfire();
+const ws = new Hellfire(ctx);
 
-const button = document.getElementById('preptodie');
-button.onclick = () => {ws.signin()};
-
-
-if (localStorage.getItem("uid") != null ) {
-    ws.uid = localStorage.getItem("uid");
-    $('#username').prop('disabled',true);
-    $('#passkey').prop('disabled',true);
-    $('#preptodie').prop('disabled',true);
-    $('#login').css('opacity','0');
-    ws.signin();
-    setTimeout(()=>{
-        $("#loading").css("opacity",'1');
-        ws.loading(100)
-    },1000)
+function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ws.castRays(canvas);
+    try {
+        requestAnimationFrame(gameLoop);
+    } catch (e) {
+        console.log(e)
+    }
 }
 
-let wait = setInterval(() => {
-    if (ws.sign) {
-        clearInterval(wait)
-    }
-}, 500);
+window.addEventListener("sign", ()=> {
+    $('#login').css('opacity','0');
+    $("#logo").css("scale",'3');
+    ws.swipeup();
+    gameLoop();
+})
+//gameLoop();
 
-// WebSocket setup
 
 
 window.addEventListener("resize", () => {
-    //engine.resize();
     canvas.setAttribute('width',window.innerWidth);
     canvas.setAttribute('height',window.innerHeight);});
