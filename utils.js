@@ -6,34 +6,23 @@ export default class Hellfire {
         this.player = null;
         this.username= 'Player';
         this.sign = new CustomEvent("sign", { detail: 'Emitted When User is Signed in' });
+        this.signout = new CustomEvent("signout",{ detail: 'Emitted When User is Signed Out' })
         this.loadbanner = true;
         this.ws.onopen = () => {
             this.fire(1,"Connection Check")
             $('#logo').css('scale', 1);
             if (localStorage.getItem("uid") != null ) {
                 this.uid = localStorage.getItem("uid");
-                $('#username').prop('disabled',true);
-                $('#passkey').prop('disabled',true);
-                $('#preptodie').prop('disabled',true);
-                $('#login').css('opacity','0');
                 this.signin();
-                $("#logo").css("scale",'3');
-                setTimeout(()=>{
-                    this.swipeup()
-                },1000)
+                this.showmenu();
             } else {
-                $('#login').css('opacity','1');
-                $('#username').prop('disabled',false);
-                $('#passkey').prop('disabled',false);
-                $('#preptodie').prop('disabled',false);
-                const button = document.getElementById('preptodie');
-                button.onclick = () => {this.signin()};
+                this.showlogin();
             }
             
         }
         this.ws.onmessage = (event) => {
             const msg = JSON.parse(event.data);
-            this.queue.push(msg);
+            this.queue. push(msg);
             switch (msg.code) {
                 case 1:
                     console.log('Connection Successful')
@@ -41,12 +30,21 @@ export default class Hellfire {
                 case 101:
                     this.uid = msg.data.uid;
                     this.username = msg.data.username;
-                    console.log('login successful',this.username)
+                    $('#intro_text').append(this.username);
+                    console.log('login successful',this.username);
                     localStorage.setItem('uid',this.uid);
-                    window.dispatchEvent(this.sign);
+                    this.showmenu();
                     break;
                 case 110:
                     this.throwerr(110, msg.data);
+                    break;
+                case 111:
+                    console.log(this.username, msg.data);
+                    this.uid = null;
+                    this.username = "Player";
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    this.showlogin();
                     break;
                 case 121:
                     console.log("update environment in 3d");
@@ -118,6 +116,43 @@ export default class Hellfire {
         $('#err-message').text(message);
         document.getElementById("alert-box").showModal();
     }
+    
+    loading(time) {
+        this.swipedown()
+        $('#logo').css('scale',3)
+        $('#main_menu').css('display','none');
+        $('#login').css('display','none');
+        setTimeout(()=>{
+            this.swipeup();
+            this.refresh();
+        },time)
+    }
+
+    refresh() {
+        if (localStorage.getItem("uid") != null ) {
+            this.showmenu();
+        } else {
+            this.showlogin();
+        }
+    }
+
+    showlogin() {
+        this.swipedown()
+        $('#logo').css('scale', 1);
+        $('#main_menu').css('display','none');
+        $('#login').css('display','flex');
+        $('#username').val("");
+        $('#passkey').val("");
+    }
+    showmenu() {
+        this.swipedown()
+        $('#logo').css('scale', 1);
+        $('#login').css('display','none');
+        $('#main_menu').css('display','flex');
+        $('#username').val("");
+        $('#passkey').val("");
+    }
+
     swipeup(){
         if (this.loadbanner) {
             $('#blackout').css('transform',"translateY(-100%)")
@@ -132,6 +167,7 @@ export default class Hellfire {
         if (!this.loadbanner) {
             $('#blackout').css('display','flex');
             $('#blackout').css('transform',"translateY(0%)");
+            this.refresh()
             this.pause = true;
             this.loadbanner = true;
         }
@@ -173,6 +209,13 @@ export default class Hellfire {
     
             distance += this.step;
         }
+    }
+    logout() {
+        this.swipedown();
+        this.fire(111,this.uid);
+        this.showlogin();
+
+        
     }
 }
 

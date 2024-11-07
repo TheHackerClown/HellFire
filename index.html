@@ -14,14 +14,30 @@
 <body>
   <div class="center" id="blackout">
     <img src="transparent.png" width="200px" id="logo" height="200px" alt="Hellfire" draggable="false">
-    <div class="nes-field center" id="login">
+      <div class="nes-field center" id="login">
         <label for="username">Username</label>
-        <input type="text" id="username" autocomplete="username" autofocus disabled required class="nes-input is-dark" placeholder="Username">
+        <input type="text" id="username" autocomplete="username" autofocus required class="nes-input logininput is-dark" placeholder="Username">
         <br>
         <label for="passkey" style="color:#fff;">Password</label>
-        <input type="password" id="passkey" autocomplete="current-password" disabled required class="nes-input is-dark" placeholder="Password">
+        <input type="password" id="passkey" autocomplete="current-password" required class="nes-input logininput is-dark" placeholder="Password">
         <br>
-        <button type="button" class="nes-btn is-error" id="preptodie">Login / Register</button>
+        <button type="button" class="nes-btn logininput is-error" id="preptodie">Login / Register</button>
+      </div>
+      <div class="nes-field center" id="main_menu">
+          <h1 id="intro_text">Welcome, </h1>
+          <br>
+          <button type="button" id="create" class="nes-btn menubtn">Create Room</button>
+          <br>
+          <button type="button" id="join" class="nes-btn menubtn">Join Room</button>
+          <br>
+          <button type="button" class="nes-btn menubtn is-disabled">Marketplace</button>
+          <br>
+          <button type="button" id="settings" class="nes-btn menubtn is-warning">Settings</button>
+          <br>
+          <button type="button" id="logout" class="nes-btn menubtn is-error">Log Out</button>
+      </div>
+        
+  <footer><a href="https://www.github.com/TheHackerClown/Hellfire">Made with ☠️ by TheHackerClown</a></footer>
     </div>
   </div>
   <canvas id="render">

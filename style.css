@@ -12,6 +12,11 @@ body {
     color: aliceblue; 
 }
 
+#main_menu {
+    position: static;
+    display: none;
+    transition: opacity 2s;
+}
 
 .center {
     display: flex;
@@ -21,8 +26,18 @@ body {
     padding: 10px;
 }
 
-#submitbtn {
-    margin-top :10%;
+button:not(.is-disabled) {
+    transition: scale 1s;
+}
+button:hover:not(.is-disabled) {
+    scale: 1.1;
+}
+
+input:not(.is-disabled) {
+    transition: scale 1s;
+}
+input:hover:not(.is-disabled) {
+    scale: 1.1;
 }
 
 .render {
@@ -41,15 +56,21 @@ body {
 
 #login {
     transition: opacity 2s;
-    position: relative;
-    opacity: 0;
+    display: flex;
+    position: static;
+    display: none;
 }
 
-#preptodie {
+#preptodie, .menubtn{
     width:35dvw;
 }
+
 
 #logo {
     scale:3;
     transition: scale 2s;
+}
+
+footer {
+    opacity: 0.5;
 }
