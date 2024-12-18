@@ -1,59 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HellFire</title>
-    <link rel="shortcut icon" href="/transparent.png" type="image/x-icon">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
-    <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
-</head>
-<body>
-  <div class="center" id="blackout">
-    <img src="/transparent.png" width="200px" id="logo" height="200px" alt="Hellfire" draggable="false">
-      <div class="nes-field center" id="login">
-        <label for="username">Username</label>
-        <input type="text" id="username" autocomplete="username" autofocus required class="nes-input logininput is-dark" placeholder="Username">
-        <br>
-        <label for="passkey" style="color:#fff;">Password</label>
-        <input type="password" id="passkey" autocomplete="current-password" required class="nes-input logininput is-dark" placeholder="Password">
-        <br>
-        <button type="button" class="nes-btn logininput is-error" id="preptodie">Login / Register</button>
-      </div>
-      <div class="nes-field center" id="main_menu">
-          <h1 id="intro_text">Welcome, </h1>
-          <br>
-          <button type="button" id="create" class="nes-btn menubtn">Create Room</button>
-          <br>
-          <button type="button" id="join" class="nes-btn menubtn">Join Room</button>
-          <br>
-          <button type="button" class="nes-btn menubtn is-disabled">Marketplace</button>
-          <br>
-          <button type="button" id="settings" class="nes-btn menubtn is-warning">Settings</button>
-          <br>
-          <button type="button" id="logout" class="nes-btn menubtn is-error">Log Out</button>
-      </div>
-        
-  <footer><a href="https://www.github.com/TheHackerClown/Hellfire">Made with ☠️ by TheHackerClown</a></footer>
-    </div>
-  </div>
-  <canvas id="render">
-  </canvas>
-  <dialog class="nes-dialog is-dark is-rounded" id="alert-box">
-    <form method="dialog" class="center">
-      <p class="title" id="err-code"></p>
-      <p id="err-message"></p>
-      <menu class="dialog-menu">
-        <button class="nes-btn">Not Ok</button>
-        <button class="nes-btn is-error">Ok</button>
-      </menu>
-    </form>
-  </dialog>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="/utils.js" type="module"></script>
-  <script src="/main.js" type="module"></script>
-</body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hellfire</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

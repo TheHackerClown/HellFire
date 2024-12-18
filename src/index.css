@@ -1,0 +1,34 @@
+* {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  color: aliceblue;
+  image-rendering: pixelated;
+}
+body {
+  background: rgb(33, 37, 41) !important;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  width: 100dvw;
+}
+
+button,input {
+  width: 30dvw !important;
+}
+
+button:not(.is-disabled) {
+  transition: scale 1s;
+}
+button:hover:not(.is-disabled) {
+  scale: 1.1;
+}
+
+input:not(.is-disabled) {
+  transition: scale 1s;
+}
+input:hover:not(.is-disabled) {
+  scale: 1.1;
+}
