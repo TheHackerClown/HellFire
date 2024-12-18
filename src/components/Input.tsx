@@ -5,6 +5,8 @@ interface InputProp {
   autoFocus?: boolean;
   required?: boolean;
   placeholder?: string;
+  value?: string;
+  onInput: (data: string) => void;
 }
 
 const Input = ({
@@ -14,6 +16,8 @@ const Input = ({
   autoFocus = false,
   required = false,
   placeholder = "",
+  value = "",
+  onInput,
 }: InputProp) => {
   return (
     <>
@@ -24,6 +28,8 @@ const Input = ({
         autoFocus={autoFocus}
         required={required}
         placeholder={placeholder}
+        value={value}
+        onChange={(e) => onInput(e.target.value)}
         className="nes-input is-dark"
       ></input>
     </>

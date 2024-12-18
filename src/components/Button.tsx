@@ -1,6 +1,7 @@
 interface ButtonProps {
   id: string;
   isdisabled?: boolean;
+  type?: string;
   children: string;
   extraClass?: string;
 }
@@ -9,12 +10,13 @@ const HellButton = ({
   id,
   isdisabled = false,
   children,
+  type = "button",
   extraClass = "",
 }: ButtonProps) => {
   return (
     <>
       <button
-        type="button"
+        type={type}
         className={
           isdisabled
             ? `nes-btn is-disabled ${extraClass}`
