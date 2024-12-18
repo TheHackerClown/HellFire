@@ -1,7 +1,7 @@
 interface ButtonProps {
   id: string;
   isdisabled?: boolean;
-  type?: string;
+  type?: "button" | "submit" | "reset";
   children: string;
   extraClass?: string;
 }

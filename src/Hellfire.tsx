@@ -1,5 +1,5 @@
 //import * as Matter from "matter-js";
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 // export class Hellfire {
 //   constructor(canvas: HTMLCanvasElement) {
 //     this.uid = null;
@@ -192,10 +192,21 @@ import { createContext, useEffect, useState } from "react";
 //   }
 // }
 
-export const GlobalData = createContext();
+interface WebSocketContextType {
+  ws: WebSocket | null | undefined;
+  fire: (code: number, data: string) => void;
+}
 
-export const MyProvider = ({ children }) => {
-  const [ws, setws] = useState();
+const defaultContext: WebSocketContextType = {
+  ws: null,
+  fire: () => {},
+};
+
+export const GlobalData = createContext<WebSocketContextType>(defaultContext);
+export const MyProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [ws, setws] = useState<WebSocket | null>();
 
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:8080");
