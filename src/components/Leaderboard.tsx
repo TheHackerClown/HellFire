@@ -7,7 +7,7 @@ const LeaderBoard = () => {
   ];
   return (
     <>
-      <div className="nes-container with-title is-rounded is-dark is-centered column">
+      <div className="nes-container with-title is-rounded is-dark is-centered center column leaderbd">
         <p className="title">LeaderBoard</p>
 
         <div className="nes-table-responsive">

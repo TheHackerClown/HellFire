@@ -9,6 +9,7 @@ body {
   background: rgb(33, 37, 41) !important;
   overflow: hidden;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   height: 100dvh;

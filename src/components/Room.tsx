@@ -12,16 +12,17 @@ interface RoomProps {
 }
 
 const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
-  if (type === "beforejoin" && roomid) {
+  if (type === "beforejoin") {
     return (
       <>
-        <div className="center">
+        <div className="center column">
           <Input
             onInput={setRoomId}
             value={roomid}
             placeholder="Room ID"
+            required={true}
           ></Input>
-
+          <br />
           <HellButton
             extraClass="is-error"
             clickfunc={(e) => tabfunc(e, "join")}

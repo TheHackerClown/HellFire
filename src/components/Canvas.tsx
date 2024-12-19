@@ -1,30 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataBar from "./DataBar";
 
 const GamePlayer = () => {
-  const [height, setheight] = useState(window.innerHeight);
-  const [width, setwidth] = useState(window.innerWidth);
+  const gamecanvas = useRef<any>();
   const [health, sethealth] = useState(5);
   const [armor, setarmor] = useState(5);
   useEffect(() => {
+    gamecanvas.current.setAttribute("width", window.innerWidth);
+    gamecanvas.current.setAttribute("height", window.innerHeight);
     window.addEventListener("resize", () => {
-      setheight(window.innerHeight);
-      setwidth(window.innerWidth);
+      gamecanvas.current.setAttribute("width", window.innerWidth);
+      gamecanvas.current.setAttribute("height", window.innerHeight);
     });
-  }, [setheight, setwidth]);
+    sethealth(5);
+    setarmor(5);
+  }, [gamecanvas.current, setarmor, sethealth]);
 
-  function attack(val: number) {
-    sethealth(health - val);
-    setarmor(armor - val);
-  }
-  attack(0); //placeholder for typescript
   return (
     <>
       <div className="gamesection column nes-container is-rounded">
         <DataBar type="health" totalvalue={5} currvalue={health}></DataBar>
         <DataBar type="armor" totalvalue={5} currvalue={armor}></DataBar>
       </div>
-      <canvas height={height} width={width} className="gameplayer">
+      <canvas className="gameplayer" ref={gamecanvas}>
         Canvas is not supported
       </canvas>
     </>

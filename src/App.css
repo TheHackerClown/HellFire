@@ -3,7 +3,6 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 80dvw;   
 }
 .logo {
     aspect-ratio: 1/1;
@@ -36,9 +35,14 @@
     right: 5%;
     position: fixed;
 }
+.leaderbd {
+    width: 50dvw;
+    height: 50dvh;
+    overflow-x: hidden;
+}
 
 .roomdata {
-    height: 21dvh;
+    height: 25dvh;
     width: 40dvw;
 }
 
@@ -53,7 +57,7 @@
 
 .playerlist {
     overflow-x: hidden;
-    height: 40dvh;
+    height: 35dvh;
 }
 
 .kickbtn {
@@ -63,11 +67,11 @@
 
 .map {
     width: 40dvw;
-    height: 40dvh;
+    height: 45dvh;
 }
 
 .gamesection {
-    position: absolute;
+    position: absolute; 
     width: 13%;
     bottom: 2%;
 }

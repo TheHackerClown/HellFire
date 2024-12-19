@@ -4,7 +4,7 @@ interface InputProp {
   autoFocus?: boolean;
   required?: boolean;
   placeholder?: string;
-  value?: string;
+  value?: string | null;
   onInput: (data: string) => void;
 }
 
@@ -25,7 +25,7 @@ const Input = ({
         autoFocus={autoFocus}
         required={required}
         placeholder={placeholder}
-        value={value}
+        value={value ? value : ""}
         onChange={(e) => onInput(e.target.value)}
         className="nes-input is-dark"
       ></input>
