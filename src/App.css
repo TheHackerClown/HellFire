@@ -5,3 +5,99 @@
     flex-direction: column;
     width: 80dvw;   
 }
+.logo {
+    aspect-ratio: 1/1;
+    width: 10dvw;
+}
+
+.box {
+    height: 70dvh;
+    width: 15dvw;
+}
+
+.settings {
+    align-self: center;
+}
+
+.roomeventbtn {
+    width: 18dvw !important;
+}
+
+.gameplayer {
+    background: black;
+    position: relative;
+    z-index: -1;
+}
+
+
+.backtomenu {
+    width: 10dvw !important;
+    bottom: 5%;
+    right: 5%;
+    position: fixed;
+}
+
+.roomdata {
+    height: 21dvh;
+    width: 40dvw;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.playerlist {
+    overflow-x: hidden;
+    height: 40dvh;
+}
+
+.kickbtn {
+    width: 10dvw !important;
+}
+
+
+.map {
+    width: 40dvw;
+    height: 40dvh;
+}
+
+.gamesection {
+    position: absolute;
+    width: 13%;
+    bottom: 2%;
+}
+.icons {
+    padding-right: 12%;
+    margin-bottom: 12%;
+}
+
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    border: 10px solid;
+    box-sizing: border-box;
+    animation: animloader 1s linear infinite alternate;
+  }
+  @keyframes animloader {
+    0% {
+      border-color: white rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
+    }
+    33% {
+      border-color: white white rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
+    }
+    66% {
+      border-color: white white white rgba(255, 255, 255, 0);
+    }
+    100% {
+      border-color: white white white white;
+    }
+  } 

@@ -1,54 +1,94 @@
 import "nes.css/css/nes.min.css";
 import HellButton from "./Button";
 import Input from "./Input";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
+import { GlobalData } from "../Hellfire";
 
-function Login() {
-  const [username, setusername] = useState("");
-  const [password, setpassword] = useState("");
+interface LoginProps {
+  usernamefunc: (arg0: string) => void;
+  dialogfunc: (code: number, message: string) => void;
+}
 
-  const handleuser = (data: string) => {
-    console.log(data);
-    setusername(data);
+function Login(props: LoginProps) {
+  const { ws, fire } = useContext(GlobalData); // Getting WebSocket and fire from context
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Handle user input for username and password
+  const handleUser = (data: string) => {
+    setUsername(data);
   };
-  const handlepass = (data: string) => {
-    console.log(data);
-    setpassword(data);
+  const handlePass = (data: string) => {
+    setPassword(data);
   };
-  const submitevent = (e: FormEvent) => {
+
+  // Handle form submission
+  const submitevent = (
+    e: FormEvent | MouseEvent,
+    ws: WebSocket | null | undefined
+  ) => {
     e.preventDefault();
-    //document.getElementById("alert-box").showModal();
-    //signin
+
+    // Ensure WebSocket is available
+    if (ws) {
+      // Send login request to server via WebSocket
+      fire(100, { token: username, tokpass: password });
+
+      // Set up WebSocket message handler
+      ws.onmessage = (e: MessageEvent) => {
+        const data = JSON.parse(e.data);
+
+        switch (data.code) {
+          case 101:
+            // Successful login or registration
+            localStorage.setItem("uid", data.data.uid);
+            localStorage.setItem("username", data.data.username);
+            props.usernamefunc(data.data.username);
+            break;
+
+          case 110:
+            // Show error message for invalid credentials
+            props.dialogfunc(data.code, data.data);
+            break;
+
+          default:
+            break;
+        }
+      };
+    } else {
+      console.error("WebSocket is not connected.");
+    }
   };
+
   return (
     <>
       <form
         className="center"
-        onSubmit={(e) => {
-          submitevent(e);
-        }}
+        onSubmit={(e) => submitevent(e, ws)} // Handle form submit
       >
         <Input
-          id="username"
           autoComplete="username"
           autoFocus={true}
           required={true}
           value={username}
-          onInput={handleuser}
+          onInput={(e) => handleUser(e)} // Update state with input value
           placeholder="Username"
-        ></Input>
-        <br></br>
+        />
+        <br />
         <Input
           type="password"
-          id="passkey"
           value={password}
           autoComplete="current-password"
           required={true}
-          onInput={handlepass}
+          onInput={(e) => handlePass(e)} // Update state with input value
           placeholder="Password"
-        ></Input>
-        <br></br>
-        <HellButton type="submit" id="preptodie" extraClass="is-error">
+        />
+        <br />
+        <HellButton
+          clickfunc={(e) => submitevent(e, ws)} // Handle button click directly
+          type="submit"
+          extraClass="is-error"
+        >
           Login / Register
         </HellButton>
       </form>

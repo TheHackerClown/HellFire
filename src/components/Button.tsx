@@ -1,33 +1,42 @@
+import { FormEvent } from "react";
+
 interface ButtonProps {
-  id: string;
-  isdisabled?: boolean;
   type?: "button" | "submit" | "reset";
   children: string;
   extraClass?: string;
+  clickfunc?: (e: MouseEvent | FormEvent) => void;
 }
 
 const HellButton = ({
-  id,
-  isdisabled = false,
   children,
   type = "button",
   extraClass = "",
+  clickfunc,
 }: ButtonProps) => {
-  return (
-    <>
-      <button
-        type={type}
-        className={
-          isdisabled
-            ? `nes-btn is-disabled ${extraClass}`
-            : `nes-btn ${extraClass}`
-        }
-        id={id}
-      >
-        {children}
-      </button>
-    </>
-  );
+  if (clickfunc) {
+    return (
+      <>
+        <button
+          type={type}
+          className={extraClass ? `nes-btn ${extraClass}` : "nes-btn"}
+          onClick={(e) => clickfunc(e)}
+        >
+          {children}
+        </button>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <button
+          type={type}
+          className={extraClass ? `nes-btn ${extraClass}` : "nes-btn"}
+        >
+          {children}
+        </button>
+      </>
+    );
+  }
 };
 
 export default HellButton;

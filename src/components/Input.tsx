@@ -1,6 +1,5 @@
 interface InputProp {
   type?: string;
-  id: string;
   autoComplete?: string;
   autoFocus?: boolean;
   required?: boolean;
@@ -11,7 +10,6 @@ interface InputProp {
 
 const Input = ({
   type = "text",
-  id,
   autoComplete = "",
   autoFocus = false,
   required = false,
@@ -23,7 +21,6 @@ const Input = ({
     <>
       <input
         type={type}
-        id={id}
         autoComplete={autoComplete}
         autoFocus={autoFocus}
         required={required}

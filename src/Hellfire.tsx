@@ -1,5 +1,5 @@
 //import * as Matter from "matter-js";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useRef } from "react";
 // export class Hellfire {
 //   constructor(canvas: HTMLCanvasElement) {
 //     this.uid = null;
@@ -194,7 +194,7 @@ import React, { createContext, useEffect, useState } from "react";
 
 interface WebSocketContextType {
   ws: WebSocket | null | undefined;
-  fire: (code: number, data: string) => void;
+  fire: (code: number, data: object | string | null) => void;
 }
 
 const defaultContext: WebSocketContextType = {
@@ -206,16 +206,14 @@ export const GlobalData = createContext<WebSocketContextType>(defaultContext);
 export const MyProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [ws, setws] = useState<WebSocket | null>();
-
+  const wsref = useRef<WebSocket | null>(null);
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:8080");
 
-    setws(socket);
-
+    wsref.current = socket;
     socket.onopen = () => console.log("WebSocket connected");
-    socket.onmessage = (event) => console.log("Message received:", event.data);
     socket.onclose = () => console.log("WebSocket disconnected");
+    socket.onmessage = (e) => console.log(e);
     socket.onerror = (error) => console.error("WebSocket error:", error);
 
     return () => {
@@ -225,22 +223,28 @@ export const MyProvider: React.FC<{ children: React.ReactNode }> = ({
     };
   }, []);
 
-  const fire = (code: number, data: string) => {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(
-        JSON.stringify({
-          code: code,
-          data: data,
-          uid: localStorage.getItem("uid"),
-        })
-      );
-    } else {
-      console.error("error 500");
+  const fire = (code: number, data: object | string | null) => {
+    try {
+      if (wsref.current && wsref.current.readyState === WebSocket.OPEN) {
+        wsref.current.send(
+          JSON.stringify({
+            code: code,
+            data: data,
+            uid: localStorage.getItem("uid"),
+          })
+        );
+      } else {
+        console.log("Testing");
+      }
+    } catch (e) {
+      console.log("Error found : ", e);
     }
   };
 
   return (
-    <GlobalData.Provider value={{ ws, fire }}>{children}</GlobalData.Provider>
+    <GlobalData.Provider value={{ ws: wsref.current, fire }}>
+      {children}
+    </GlobalData.Provider>
   );
 };
 
