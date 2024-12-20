@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent, useRef, useState, useEffect } from "react";
 import map from "../assets/image.png";
 import HellButton from "./Button";
 import Input from "./Input";
@@ -10,7 +10,6 @@ interface RoomProps {
   roomid?: string | null;
   setRoomId: (arg0: string | null) => void;
 }
-
 const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
   if (type === "beforejoin") {
     return (
@@ -33,7 +32,40 @@ const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
       </>
     );
   } else {
-    const item = ["name", "name2", "name3", "name4"];
+    const chatcontainer = useRef<any>();
+
+    const [item, setitem] = useState<string[]>([
+      "name",
+      "name2",
+      "name3",
+      "name4",
+    ]);
+    const [chat, setchat] = useState<string[]>([
+      "name|dhruv",
+      "name2|dhruv",
+      "name3|dhruv",
+      "name4|dhruv",
+    ]);
+
+    useEffect(() => {
+      if (chatcontainer.current) {
+        chatcontainer.current.scrollTop = chatcontainer.current.scrollHeight;
+      }
+    }, [chat]);
+    const [inputvar, setinputvar] = useState("");
+    const handleChatInput = (event: FormEvent | MouseEvent) => {
+      if (event && inputvar !== "") {
+        setinputvar("");
+        setchat([...chat, `${inputvar}|dhruv`]);
+      }
+    };
+    const [pointer, setpointer] = useState<string | null>(null);
+    const handleChange = (event: FormEvent | MouseEvent) => {
+      if (event) {
+        setitem(item.filter((value) => value !== pointer));
+        setpointer(null);
+      }
+    };
     return (
       <>
         <div className="column">
@@ -56,6 +88,10 @@ const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
                           type="radio"
                           className="nes-radio"
                           name="answer"
+                          value={item}
+                          onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setpointer(e.target.value)
+                          }
                         />
                       ) : null}
                       <span>{item}</span>
@@ -65,7 +101,12 @@ const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
                 <hr />
                 {type === "create" ? (
                   <>
-                    <HellButton extraClass="is-error kickbtn">Kick</HellButton>
+                    <HellButton
+                      extraClass="is-error kickbtn"
+                      clickfunc={handleChange}
+                    >
+                      Kick
+                    </HellButton>
                     <hr />
                     <h6>To kick players, select and click kick button</h6>
                   </>
@@ -148,6 +189,43 @@ const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
                       </HellButton>
                     </>
                   )}
+                </div>
+              </div>
+              <div className="chatbox nes-container is-dark is-rounded is-centered with-title">
+                <p className="title">Room Chat</p>
+                <hr />
+                <div className="globalchats column" ref={chatcontainer}>
+                  {chat.map((item, index) => (
+                    <>
+                      <label
+                        className="is-dark chatbubble nes-container is-rounded"
+                        key={index}
+                      >
+                        <p>{item.split("|")[0]}</p>
+                        <h6>by {item.split("|")[1]}</h6>
+                      </label>
+                    </>
+                  ))}
+                </div>
+                <hr />
+                <div className="row">
+                  <textarea
+                    id="textarea_field"
+                    className="nes-textarea is-dark "
+                    placeholder="Write Message to Room"
+                    value={inputvar}
+                    onChange={(e) => {
+                      if (e) {
+                        setinputvar(e.target.value);
+                      }
+                    }}
+                  ></textarea>
+                  <HellButton
+                    extraClass="submitchat"
+                    clickfunc={handleChatInput}
+                  >
+                    Send
+                  </HellButton>
                 </div>
               </div>
             </div>

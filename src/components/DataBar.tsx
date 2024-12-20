@@ -1,12 +1,12 @@
 interface DataBarProps {
-  type: string;
+  type: "health" | "star" | "heart" | "armor";
   totalvalue: number;
   currvalue: number;
 }
 
 const DataBar = ({ type, totalvalue, currvalue }: DataBarProps) => {
   let data = new Array(totalvalue);
-  let pointer = Math.floor(currvalue);
+  let pointer = currvalue - Math.floor(currvalue);
 
   if (type === "health") {
     type = "heart";
@@ -19,9 +19,9 @@ const DataBar = ({ type, totalvalue, currvalue }: DataBarProps) => {
     }
   } else {
     for (let i = 0; i < totalvalue; i++) {
-      if (i <= Math.floor(currvalue)) {
+      if (i < Math.floor(currvalue)) {
         data[i] = 2;
-      } else if (i > Math.floor(currvalue) && pointer > 0) {
+      } else if (i >= Math.floor(currvalue) && pointer > 0) {
         data[i] = 1;
         pointer = 0;
       } else {
@@ -41,16 +41,18 @@ const DataBar = ({ type, totalvalue, currvalue }: DataBarProps) => {
     }
   }
   return (
-    <section className="icon-list row">
-      {data.map((value, index) => (
-        <>
-          <i
-            className={`nes-icon icons ${returnstate(value)} ${type}`}
-            key={index}
-          ></i>
-        </>
-      ))}
-    </section>
+    <>
+      <section className="icon-list row">
+        {data.map((value, index) => (
+          <>
+            <i
+              className={`nes-icon icons ${returnstate(value)} ${type}`}
+              key={index}
+            ></i>
+          </>
+        ))}
+      </section>
+    </>
   );
 };
 

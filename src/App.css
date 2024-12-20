@@ -9,6 +9,22 @@
     width: 10dvw;
 }
 
+.chatbox {
+    width: 30dvw;
+    height: 78dvh;
+}
+
+.globalchats {
+    height: 53dvh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.submitchat {
+    margin-left: 5%;
+    width: 7dvw ! important;
+}
+
 .box {
     height: 70dvh;
     width: 15dvw;

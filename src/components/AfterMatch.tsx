@@ -32,8 +32,8 @@ const AfterMatch = () => {
                   <td>{item[3]}</td>
                   <DataBar
                     type="armor"
-                    currvalue={5 - index * 2}
-                    totalvalue={5}
+                    currvalue={3 - index}
+                    totalvalue={3}
                   ></DataBar>
                   <hr />
                 </tr>
