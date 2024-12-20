@@ -11,6 +11,7 @@ import { createPortal } from "react-dom";
 import Room from "./components/Room";
 import Settings from "./components/Settings";
 import GamePlayer from "./components/Canvas";
+import AfterMatch from "./components/AfterMatch";
 
 export default function App() {
   const [tab, setTab] = useState("none");
@@ -112,7 +113,20 @@ export default function App() {
       case "game":
         return (
           <>
-            <GamePlayer></GamePlayer>
+            <GamePlayer tabfunc={handleTabChange}></GamePlayer>
+            <HellButton
+              extraClass="backtomenu is-error is-dark"
+              clickfunc={(e) => handleTabChange(e, "none")}
+            >
+              Back to Menu
+            </HellButton>
+          </>
+        );
+        break;
+      case "aftergame":
+        return (
+          <>
+            <AfterMatch></AfterMatch>
             <HellButton
               extraClass="backtomenu is-error is-dark"
               clickfunc={(e) => handleTabChange(e, "none")}

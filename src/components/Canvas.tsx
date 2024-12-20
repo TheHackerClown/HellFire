@@ -1,7 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import DataBar from "./DataBar";
+import HellButton from "./Button";
 
-const GamePlayer = () => {
+interface GamePlayerProps {
+  tabfunc: (e: FormEvent | MouseEvent, data: string | undefined) => void;
+}
+
+const GamePlayer = ({ tabfunc }: GamePlayerProps) => {
   const gamecanvas = useRef<any>();
   const [health, sethealth] = useState(5);
   const [armor, setarmor] = useState(5);
@@ -22,6 +27,14 @@ const GamePlayer = () => {
         <DataBar type="health" totalvalue={5} currvalue={health}></DataBar>
         <DataBar type="armor" totalvalue={5} currvalue={armor}></DataBar>
       </div>
+      <HellButton
+        extraClass="gamesection"
+        clickfunc={(e) => {
+          tabfunc(e, "aftergame");
+        }}
+      >
+        End Match
+      </HellButton>
       <canvas className="gameplayer" ref={gamecanvas}>
         Canvas is not supported
       </canvas>
