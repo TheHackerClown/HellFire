@@ -7,14 +7,12 @@ import jump from "../assets/parkour.png";
 import Matter from "matter-js";
 
 const GamePlayer = () => {
-  const gameRef = useRef<any>();
   const gamescreen = useRef<any>();
   let [jumpCount, setJumpCount] = useState(100);
   let [jumpChange, setjumpchange] = useState<number>(0);
   let playerbody = useRef<Matter.Body>();
   let engineref = useRef<Matter.Engine>();
   let keypressed = useRef<any>({});
-  setjumpchange(100);
   const maparr = [
     [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -160,6 +158,7 @@ const GamePlayer = () => {
         }
       ), // Right
     ];
+    setjumpchange(100);
     playerbody.current = Matter.Bodies.circle(470, 200, 10);
     Matter.World.add(engineref.current.world, playerbody.current);
     Matter.World.add(engineref.current.world, walls);
@@ -224,16 +223,16 @@ const GamePlayer = () => {
 
   //Active Resize
   useEffect(() => {
-    gameRef.current.setAttribute("width", window.innerWidth);
-    gameRef.current.setAttribute("height", window.innerHeight);
+    gamescreen.current.setAttribute("width", window.innerWidth);
+    gamescreen.current.setAttribute("height", window.innerHeight);
 
     window.addEventListener("resize", () => {
-      gameRef.current.setAttribute("width", window.innerWidth);
-      gameRef.current.setAttribute("height", window.innerHeight);
+      gamescreen.current.setAttribute("width", window.innerWidth);
+      gamescreen.current.setAttribute("height", window.innerHeight);
     });
   }, []);
   return (
-    <div ref={gameRef}>
+    <>
       <div className="playerdatabottomleft column nes-container is-rounded">
         <div className="row center">
           <i className="nes-icon heart icons right"></i>
@@ -273,7 +272,7 @@ const GamePlayer = () => {
         <p>Players Left - 10</p>
       </div>
       <canvas ref={gamescreen} className="gameplayer"></canvas>
-    </div>
+    </>
   );
 };
 
