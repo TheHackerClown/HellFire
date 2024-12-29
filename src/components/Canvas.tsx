@@ -183,7 +183,7 @@ const GamePlayer = () => {
   }, []);
 
   useEffect(() => {
-    Matter.Events.on(engineref.current, "beforeUpdate", () => {
+    Matter.Events.on(engineref.current, "tick", () => {
       if (playerbody.current && keypressed.current && engineref.current) {
         let offsetX = window.innerWidth / 2 - playerbody.current.position.x;
 
