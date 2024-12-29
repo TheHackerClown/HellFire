@@ -63,12 +63,7 @@ export default function App() {
         return (
           <>
             <LeaderBoard></LeaderBoard>
-            <HellButton
-              extraClass="backtomenu is-error is-dark"
-              clickfunc={(e) => handleTabChange(e, "none")}
-            >
-              Back to Menu
-            </HellButton>
+            
           </>
         );
         break;
@@ -110,16 +105,10 @@ export default function App() {
           </>
         );
         break;
-      case "game":
+      case "game": //tabfunc={handleTabChange}
         return (
           <>
-            <GamePlayer tabfunc={handleTabChange}></GamePlayer>
-            <HellButton
-              extraClass="backtomenu is-error is-dark"
-              clickfunc={(e) => handleTabChange(e, "none")}
-            >
-              Back to Menu
-            </HellButton>
+            <GamePlayer></GamePlayer>
           </>
         );
         break;
@@ -127,12 +116,6 @@ export default function App() {
         return (
           <>
             <AfterMatch></AfterMatch>
-            <HellButton
-              extraClass="backtomenu is-error is-dark"
-              clickfunc={(e) => handleTabChange(e, "none")}
-            >
-              Back to Menu
-            </HellButton>
           </>
         );
         break;
@@ -141,24 +124,6 @@ export default function App() {
         return (
           <>
             <Settings></Settings>
-            <HellButton
-              extraClass="backtomenu is-error is-dark"
-              clickfunc={
-                fromGame === "create" || fromGame === "join"
-                  ? (e) => {
-                      setfromGame(null);
-                      handleTabChange(e, fromGame);
-                    }
-                  : (e) => {
-                      setfromGame(null);
-                      handleTabChange(e, "none");
-                    }
-              }
-            >
-              {fromGame !== "create" && fromGame !== "join"
-                ? " Back to Menu "
-                : " Back to Previous Screen "}
-            </HellButton>
           </>
         );
         break;
@@ -203,6 +168,31 @@ export default function App() {
       ) : (
         <Login usernamefunc={setUsername} dialogfunc={showDialog} />
       )}
+
+      {tab !== "game" &&
+      tab !== "none" &&
+      tab !== "create" &&
+      tab !== "join" &&
+      username !== null ? (
+        <HellButton
+          extraClass="backtomenu is-error is-dark"
+          clickfunc={
+            fromGame === "create" || fromGame === "join"
+              ? (e) => {
+                  setfromGame(null);
+                  handleTabChange(e, fromGame);
+                }
+              : (e) => {
+                  setfromGame(null);
+                  handleTabChange(e, "none");
+                }
+          }
+        >
+          {fromGame !== "create" && fromGame !== "join"
+            ? " Back to Menu "
+            : " Back to Previous Screen "}
+        </HellButton>
+      ) : null}
 
       {showModal
         ? createPortal(

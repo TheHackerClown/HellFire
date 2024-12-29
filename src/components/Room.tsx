@@ -41,10 +41,10 @@ const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
       "name4",
     ]);
     const [chat, setchat] = useState<string[]>([
-      "name|dhruv",
-      "name2|dhruv",
-      "name3|dhruv",
-      "name4|dhruv",
+      "name§dhruv",
+      "name2§dhruv",
+      "name3§dhruv",
+      "name4§dhruv",
     ]);
 
     useEffect(() => {
@@ -56,7 +56,7 @@ const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
     const handleChatInput = (event: FormEvent | MouseEvent) => {
       if (event && inputvar !== "") {
         setinputvar("");
-        setchat([...chat, `${inputvar}|dhruv`]);
+        setchat([...chat, `${inputvar}§dhruv`]);
       }
     };
     const [pointer, setpointer] = useState<string | null>(null);
@@ -69,12 +69,12 @@ const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
     return (
       <>
         <div className="column">
-          <div className="nes-container is-dark with-title is-centered is-rounded column">
+          <div className="nes-container is-dark with-title is-centered  column">
             <p className="title">
               Room {type === "create" ? "Control" : "Watch"} Panel
             </p>
             <div className="row">
-              <div className="nes-container is-rounded is-dark with-title box">
+              <div className="nes-container  is-dark with-title box">
                 <p className="title">Connected Players</p>
                 <hr />
                 <div className="column playerlist">
@@ -118,7 +118,7 @@ const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
                 )}
               </div>
               <div className="column">
-                <div className="map nes-container is-centered is-rounded is-dark with-title">
+                <div className="map nes-container is-centered  is-dark with-title">
                   <p className="title">Map</p>
                   <img src={map} height={200} width={500} />
                   <br />
@@ -130,7 +130,7 @@ const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
                     </>
                   ) : null}
                 </div>
-                <div className="roomdata nes-container is-rounded is-dark with-title column">
+                <div className="roomdata nes-container  is-dark with-title column">
                   <p className="title">Room Details</p>
                   <p>
                     Share Room Name : {type === "join" ? roomid : "room name"}
@@ -191,18 +191,18 @@ const Room = ({ type, tabfunc, fromGame, roomid, setRoomId }: RoomProps) => {
                   )}
                 </div>
               </div>
-              <div className="chatbox nes-container is-dark is-rounded is-centered with-title">
+              <div className="chatbox nes-container is-dark  is-centered with-title">
                 <p className="title">Room Chat</p>
                 <hr />
                 <div className="globalchats column" ref={chatcontainer}>
                   {chat.map((item, index) => (
                     <>
                       <label
-                        className="is-dark chatbubble nes-container is-rounded"
+                        className="is-dark chatbubble is-rounded nes-container with-title "
                         key={index}
                       >
-                        <p>{item.split("|")[0]}</p>
-                        <h6>by {item.split("|")[1]}</h6>
+                        <p className="title">by {item.split("§")[1]}</p>
+                        <p>{item.split("§")[0]}</p>
                       </label>
                     </>
                   ))}

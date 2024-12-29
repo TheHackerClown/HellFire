@@ -12,8 +12,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "matter-js": "^0.20.0",
+    "matter-js": "^0.12.0",
+    "matter-wrap": "^0.2.0",
     "nes.css": "^2.2.1",
+    "poly-decomp": "^0.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-use-websocket": "^4.11.1"
